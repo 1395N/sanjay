@@ -2,10 +2,38 @@
 <html>
 <head>
     <title>Application Form</title>
+    <script>
+        function validateForm() {
+            const name = document.forms["appForm"]["name"].value.trim();
+            const email = document.forms["appForm"]["email"].value.trim();
+            const phone = document.forms["appForm"]["phone"].value.trim();
+
+            const nameRegex = /^[A-Za-z\s]+$/;
+            const emailRegex = /^[^@]+@[^@]+\.[^@]+$/;
+            const phoneRegex = /^\d{10}$/;
+
+            if (!nameRegex.test(name)) {
+                alert("Name must contain only letters and spaces.");
+                return false;
+            }
+
+            if (!emailRegex.test(email)) {
+                alert("Invalid email format. It must contain '@' and a domain.");
+                return false;
+            }
+
+            if (!phoneRegex.test(phone)) {
+                alert("Phone number must be exactly 10 digits.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
 </head>
 <body>
     <h2>Application Form</h2>
-    <form method="POST" action="/submit">
+    <form name="appForm" method="POST" action="/submit" onsubmit="return validateForm()">
         <label>Name:</label><br>
         <input type="text" name="name" required><br><br>
 
@@ -19,5 +47,6 @@
     </form>
 </body>
 </html>
+
 
 
